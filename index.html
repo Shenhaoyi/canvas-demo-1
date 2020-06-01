@@ -7,9 +7,43 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div id="canvas"></div>
+    <canvas id="canvas"></canvas>
     <script>
-      canvas.onclick = (e) => {
+        let canvas = document.getElementById("canvas");
+        //  获取窗口大小
+        canvas.width = document.documentElement.clientWidth;
+        canvas.height = document.documentElement.clientHeight;
+        let ctx = canvas.getContext("2d");
+
+        let painting = false;
+        ctx.strokeStyle = 'none'
+
+        canvas.onmousedown = () =>{
+            painting = true;
+        }
+
+        ctx.fillStyle = "black";
+        canvas.onmousemove = (e) => {
+            if(painting === true){
+                ctx.beginPath();
+                ctx.arc(e.clientX, e.clientY, 10, 0, 2 * Math.PI);
+                ctx.stroke();
+                ctx.fill();
+            }else{
+                console.log('什么都不做')
+            }
+        }
+
+        canvas.onmouseup = () =>{
+            painting = false;
+        }
+    </script>
+
+
+    <!-- 性能很差 -->
+    <!-- <div id="canvas"></div>
+    <script>
+      canvas.onmousemove = (e) => {
         console.log(e.clientX);
         console.log(e.clientY);
         let div = document.createElement("div");
@@ -23,7 +57,7 @@
         div.style.borderRadius = "50%";
         div.style.backgroundColor = "black";
         canvas.appendChild(div);
-      };
+      }; -->
     </script>
   </body>
 </html>
